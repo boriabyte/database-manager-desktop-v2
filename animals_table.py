@@ -2,19 +2,19 @@ from tkinter import ttk
 import tkinter as tk
 from connect_to_db import get_db_connection
 
-class CharacteristicsInterface:
+class AnimalsInterface:
     def __init__(self, root, design):
         self.root = root
         self.design = design
         self.db = get_db_connection()
-        self.visualize_query = "SELECT characteristic FROM characteristics"
-        
-    def open_characteristics_interface(self):
+        self.visualize_query = "SELECT name FROM animals"
+
+    def open_animals_interface(self):
         self._clear_root()
-        self._add_interface_title("CHARACTERISTICS")
+        self._add_interface_title("ANIMALS")
         self._add_return_home_button()
         self._add_treeview()
-        
+
     def _clear_root(self):
         for widget in self.root.winfo_children():
             widget.destroy()
@@ -26,7 +26,7 @@ class CharacteristicsInterface:
     def _add_return_home_button(self):
         return_home = self.design._create_button("<", self.return_to_main)
         return_home.place(relx=0.05, rely=0.1, anchor='nw')
-    
+
     def _add_treeview(self):
         style = ttk.Style()
         style.configure("Treeview", font=("Montserrat", 25), rowheight=40, foreground="#0078D4")  # adjust the font size, row height, and font color as needed
@@ -52,7 +52,7 @@ class CharacteristicsInterface:
         tree.bind("<Enter>", lambda e: tree.config(cursor="hand2"))  # change cursor to hand2 when mouse enters
         tree.bind("<Leave>", lambda e: tree.config(cursor=""))
         tree.config(highlightthickness=0)
-        
+
     def return_to_main(self):
         self._clear_root()
         self.design.add_widgets()
