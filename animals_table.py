@@ -80,6 +80,7 @@ class AnimalsInterface:
             self.tree.insert("", "end", values=row)
 
     def on_treeview_click(self, event):
+<<<<<<< HEAD
         item = self.tree.selection()[0]  
         animal = self.tree.item(item, "values")[0]  
         self.tree.place(relx=0.6, rely=0.6, anchor='center')
@@ -87,6 +88,15 @@ class AnimalsInterface:
         self.kill_entry.place(relx=0.695, rely=0.32, anchor="ne", width=30, height=42)  
         self.hide_button.place(relx=0.305, rely=0.304, anchor='w', width=30, height=42)
  
+=======
+        item = self.tree.selection()[0]  # Get the selected item
+        animal = self.tree.item(item, "values")[0]  # Get the characteristic from the selected item
+        self.tree.place(relx=0.6, rely=0.6, anchor='center')
+        self.add_entry.place(relx=0.695, rely=0.28, anchor='ne', width=30, height=42)  # Move the add_entry button
+        self.kill_entry.place(relx=0.695, rely=0.32, anchor="ne", width=30, height=42)  # Move the kill_entry button
+        self.hide_button.place(relx=0.305, rely=0.3435, anchor='w', width=30, height=42)
+        # Execute SQL query to get all animals associated with the selected characteristic
+>>>>>>> 5b7e476f2b42daad6edf07bc8623d93e88a1516c
         cursor = self.db.cursor()
         cursor.execute("""
             SELECT c.characteristic 
@@ -100,11 +110,19 @@ class AnimalsInterface:
         if hasattr(self, 'characteristic_tree'):
             self.characteristic_tree.destroy()
         
+<<<<<<< HEAD
+=======
+        # Create a new treeview to display the animals
+>>>>>>> 5b7e476f2b42daad6edf07bc8623d93e88a1516c
         self.characteristic_tree = ttk.Treeview(self.root, height=len(characteristics), style="Treeview", show='tree')
         self.characteristic_tree["columns"]=("one")
         self.characteristic_tree.column("#0", width=0, stretch=tk.NO)
         self.characteristic_tree.column("one", width=300, stretch=tk.YES)
+<<<<<<< HEAD
         self.characteristic_tree.place(relx=0.4, rely=0.283, anchor='n') 
+=======
+        self.characteristic_tree.place(relx=0.4, rely=0.323, anchor='n')  # Place the treeview to the left of the main treeview
+>>>>>>> 5b7e476f2b42daad6edf07bc8623d93e88a1516c
 
         for i, characteristic in enumerate(characteristics, start=1):
             self.characteristic_tree.insert("", "end", values=characteristic)
@@ -136,12 +154,22 @@ class AnimalsInterface:
                             characteristic_ids.append(result[0])
                         else:
                             tk.messagebox.showinfo("Error", f"The characteristic '{characteristic}' was not found. Please add it first.")
+<<<<<<< HEAD
                             return 
                 
                     cursor = self.db.cursor()
                     cursor.execute("INSERT INTO animals (name) VALUES (%s)", (new_entry,))
                     self.db.commit()
                     id_animal = cursor.lastrowid 
+=======
+                            return  # Return early if any animal is not found
+                
+                # Only insert the characteristic if all animals exist
+                    cursor = self.db.cursor()
+                    cursor.execute("INSERT INTO animals (name) VALUES (%s)", (new_entry,))
+                    self.db.commit()
+                    id_animal = cursor.lastrowid  # Get the ID of the last inserted row
+>>>>>>> 5b7e476f2b42daad6edf07bc8623d93e88a1516c
                 
                     for id_characteristic in characteristic_ids:
                         cursor.execute("INSERT INTO junction (idCharacteristics, idAnimals) VALUES (%s, %s)", (id_characteristic, id_animal))
