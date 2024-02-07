@@ -1,9 +1,11 @@
+# IMPORTS---------------------------------------------------------
 import mysql.connector
+# ----------------------------------------------------------------
 
 def get_db_connection():
     return mysql.connector.connect(
-        host = "localhost",
-        user = "root",
+        host = "host",
+        user = "user",
         password = "password",
-        database = "caracteristici_animale"
+        database = "database-name"
     )
